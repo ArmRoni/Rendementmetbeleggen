@@ -1,0 +1,414 @@
+/**
+ * Owl Carousel v2.3.4
+ * Copyright 2013-2018 David Deutsch
+ * Licensed under: SEE LICENSE IN https://github.com/OwlCarousel2/OwlCarousel2/blob/master/LICENSE
+ */
+
+
+/*
+ *  Owl Carousel - Core
+ */
+
+.owl-carousel {
+    display: none;
+    width: 100%;
+    -webkit-tap-highlight-color: transparent;
+    /* position relative and z-index fix webkit rendering fonts issue */
+    position: relative;
+    z-index: 1;
+}
+
+.owl-carousel .owl-stage {
+    position: relative;
+    -ms-touch-action: pan-Y;
+    touch-action: manipulation;
+    -moz-backface-visibility: hidden;
+    /* fix firefox animation glitch */
+    display: flex;
+}
+
+.owl-carousel .owl-stage: after {
+    content: ".";
+    display: block;
+    clear: both;
+    visibility: hidden;
+    line-height: 0;
+    height: 0;
+}
+
+.owl-carousel .owl-stage-outer {
+    position: relative;
+    overflow: hidden;
+    /* fix for flashing background */
+    -webkit-transform: translate3d(0px, 0px, 0px);
+}
+
+.owl-carousel .owl-wrapper,
+.owl-carousel .owl-item {
+    -webkit-backface-visibility: hidden;
+    -moz-backface-visibility: hidden;
+    -ms-backface-visibility: hidden;
+    -webkit-transform: translate3d(0, 0, 0);
+    -moz-transform: translate3d(0, 0, 0);
+    -ms-transform: translate3d(0, 0, 0);
+}
+
+.owl-carousel .owl-item {
+    position: relative;
+    min-height: 1px;
+    float: left;
+    -webkit-backface-visibility: hidden;
+    -webkit-tap-highlight-color: transparent;
+    -webkit-touch-callout: none;
+}
+
+.owl-carousel .owl-item img {
+    display: block;
+    width: 100%;
+}
+
+.owl-carousel .owl-nav.disabled,
+.owl-carousel .owl-dots.disabled {
+    display: none;
+}
+
+.owl-carousel .owl-nav .owl-prev,
+.owl-carousel .owl-nav .owl-next,
+.owl-carousel .owl-dot {
+    cursor: pointer;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+.owl-carousel .owl-nav button.owl-prev,
+.owl-carousel .owl-nav button.owl-next,
+.owl-carousel button.owl-dot {
+    background: none;
+    color: inherit;
+    border: none;
+    padding: 0 !important;
+    font: inherit;
+}
+.owl-dots {
+	text-align:center;
+}
+.owl-dots {
+    position: absolute;
+    height: auto;
+    width: 100%;
+    bottom: -44px;
+    left: 0;
+    z-index: 20;
+}
+.owl-carousel button.owl-dot {
+	width: 12px;
+    height: 12px;
+    padding: 3px;
+    border: 1px solid #FDFDFD;
+	background-color:#FDFDFD;
+	border-radius:50%;
+	margin:0 8px;
+	display:inline-block;
+	outline:none;
+	cursor:pointer;
+	position:relative;
+}
+
+.preceded_slider.owl-carousel button.owl-dot{
+   border: 1px solid #FFFFFF;
+   background-color:#FFFFFF; 
+   width: 12px;
+   height: 12px;
+}
+.owl-carousel button.owl-dot { 
+   /*  padding-top:26px */
+}
+.owl-carousel button.owl-dot.active {
+    background: linear-gradient(30deg, #00D57D 10.27%, #00D47F 11.07%, #00B9B6 38.08%, #00A6DE 60.33%, #009AF6 78.6%, #0096FF 89.73%);
+    border: 2px solid #FDFDFD;
+    width:16px;
+    height:16px;
+}
+.owl-carousel button.owl-dot.active::after {
+    position: absolute;
+    top: 3px;
+    right: 3px;
+    bottom: 3px;
+    left: 3px;
+    content: '';
+    border-radius: 100%;
+    background-color: #cdd2d8;
+    width: 7px;
+    height: 7px;
+	display:none;
+}
+.owl-carousel .owl-nav {
+    position: absolute;
+    height: auto;
+    width: 100%;
+    top: 50%;
+    left: 0;
+    transform: translateY(-50%);
+    /* margin-top: -20px; */
+    z-index: 90;
+  
+}
+.owl-carousel .owl-nav button.owl-prev,
+.owl-carousel .owl-nav button.owl-next {
+    width: 48px;
+    height: 48px;
+	border: 1px solid #FDFDFD;
+    border-radius: 50%;
+    position: absolute;
+    top: 50%;
+    margin-top: -20px;
+    z-index: 20;
+    outline: none;
+    font-size: 16px;
+    line-height: 20px;
+    color: #FDFDFD;
+}
+.owl-carousel .owl-nav button.owl-prev:hover,
+.owl-carousel .owl-nav button.owl-next:hover {
+	background: #F1FAFD;
+	border: 1px solid #F1FAFD;
+    color:var(--primary);
+}
+.owl-carousel .owl-nav button.owl-prev {
+	left:-72px;
+}
+.owl-carousel .owl-nav button.owl-next {
+	right:-72px;
+}
+.owl-carousel.owl-loaded {
+    display: block;
+}
+.owl-carousel.owl-loading {
+    opacity: 0;
+    display: block;
+}
+.owl-carousel.owl-hidden {
+    opacity: 0;
+}
+.owl-carousel.owl-refresh .owl-item {
+    visibility: hidden;
+}
+.owl-carousel.owl-drag .owl-item {
+    -ms-touch-action: pan-y;
+    touch-action: pan-y;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+.owl-carousel.owl-grab {
+    cursor: move;
+    cursor: grab;
+}
+.owl-carousel.owl-rtl {
+    direction: rtl;
+}
+.owl-carousel.owl-rtl .owl-item {
+    float: right;
+}
+/* No Js */
+.no-js .owl-carousel {
+    display: block;
+}
+
+/*
+ *  Owl Carousel - Animate Plugin
+ */
+.owl-carousel .animated {
+    animation-duration: 1000ms;
+    animation-fill-mode: both;
+}
+.owl-carousel .owl-animated-in {
+    z-index: 0;
+}
+.owl-carousel .owl-animated-out {
+    z-index: 1;
+}
+.owl-carousel .fadeOut {
+    animation-name: fadeOut;
+}
+@keyframes fadeOut {
+    0% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+    }
+}
+/*
+ * 	Owl Carousel - Auto Height Plugin
+ */
+.owl-height {
+    transition: height 500ms ease-in-out;
+}
+
+/*
+ * 	Owl Carousel - Lazy Load Plugin
+ */
+
+.owl-carousel .owl-item {
+    /**
+			This is introduced due to a bug in IE11 where lazy loading combined with autoheight plugin causes a wrong
+			calculation of the height of the owl-item that breaks page layouts
+		 */
+}
+.owl-carousel .owl-item .owl-lazy {
+    opacity: 0;
+    transition: opacity 400ms ease;
+}
+.owl-carousel .owl-item .owl-lazy[src^=""],
+.owl-carousel .owl-item .owl-lazy:not([src]) {
+    max-height: 0;
+}
+.owl-carousel .owl-item img.owl-lazy {
+    transform-style: preserve-3d;
+}
+.preceded_slider.owl-carousel .owl-nav button.owl-next,
+.preceded_slider.owl-carousel .owl-nav button.owl-prev{
+    border: 1px solid #F1F0EE;
+}
+.preceded_slider.owl-carousel .owl-nav button.owl-prev:hover,
+.preceded_slider.owl-carousel .owl-nav button.owl-next:hover{
+    background: #F1F0EE;
+}
+
+
+@media screen and (max-width:991px){
+    .blog_article_carousel.owl-carousel .owl-nav,
+    .preceded_slider.owl-carousel .owl-nav{
+        top: 100%;
+        transform:none;
+    }  
+ 
+    .blog_article_carousel.owl-carousel .owl-nav button.owl-prev,
+    .blog_article_carousel.owl-carousel .owl-nav button.owl-next{
+        margin: 30px 10px 0px 10px;
+    }
+
+    .preceded_slider.owl-carousel .owl-nav button.owl-prev,
+    .preceded_slider.owl-carousel .owl-nav button.owl-next{
+        margin: 20px 10px 0px 10px;
+    }
+    .preceded_slider.owl-carousel .owl-dots{
+        bottom: -45px;
+    }
+
+}
+
+.our_news_box.owl-carousel .owl-nav button.owl-prev,
+.our_news_box.owl-carousel .owl-nav button.owl-next,
+.testimonials_slider.owl-carousel .owl-nav button.owl-prev,
+.testimonials_slider.owl-carousel .owl-nav button.owl-next,
+.our_partner_box.owl-carousel .owl-nav button.owl-prev,
+.our_partner_box.owl-carousel .owl-nav button.owl-next {
+    background: linear-gradient(30deg, #00D57D 10.27%, #00D47F 11.07%, #00B9B6 38.08%, #00A6DE 60.33%, #009AF6 78.6%, #0096FF 89.73%);
+}
+
+.our_news_box.owl-carousel .owl-nav button.owl-prev::after,
+.our_news_box.owl-carousel .owl-nav button.owl-next::after,
+.testimonials_slider.owl-carousel .owl-nav button.owl-prev::after,
+.testimonials_slider.owl-carousel .owl-nav button.owl-next::after,
+.our_partner_box.owl-carousel .owl-nav button.owl-prev::after,
+.our_partner_box.owl-carousel .owl-nav button.owl-next::after {
+    content:'';
+    position:absolute;
+    width:44px;
+    height:44px;
+    background: #fafbfb;
+    border-radius:50%;
+    left: 1px;
+    top: 1px;
+}
+.testimonials_slider.owl-carousel .owl-nav button.owl-prev::after,
+.testimonials_slider.owl-carousel .owl-nav button.owl-next::after {
+    background:#f1f2f2;
+}
+.our_news_box.owl-carousel .owl-nav button.owl-prev:hover::after,
+.our_news_box.owl-carousel .owl-nav button.owl-next:hover::after,
+.our_partner_box.owl-carousel .owl-nav button.owl-prev:hover::after,
+.our_partner_box.owl-carousel .owl-nav button.owl-next:hover::after {
+    background:#f1f2f2;
+}
+
+.testimonials_slider.owl-carousel .owl-nav button.owl-prev:hover::after,
+.testimonials_slider.owl-carousel .owl-nav button.owl-next:hover::after{
+    background:#fafbfb;
+}
+
+.our_news_box.owl-carousel .owl-nav button.owl-prev span,
+.our_news_box.owl-carousel .owl-nav button.owl-next span,
+.testimonials_slider.owl-carousel .owl-nav button.owl-prev span,
+.testimonials_slider.owl-carousel .owl-nav button.owl-next span,
+.our_partner_box.owl-carousel .owl-nav button.owl-prev span,
+.our_partner_box.owl-carousel .owl-nav button.owl-next span {
+    background: linear-gradient(30deg, #00D57D 10.27%, #00D47F 11.07%, #00B9B6 38.08%, #00A6DE 60.33%, #009AF6 78.6%, #0096FF 89.73%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    text-fill-color: transparent;
+    position:relative;
+    z-index:1;
+}
+.our_partner_box.owl-carousel .owl-nav button.owl-prev {
+    left: 0px;
+   top: -47px
+}
+.our_partner_box.owl-carousel .owl-nav button.owl-next {
+    right:0px;
+   top: -47px
+}
+
+@media screen and (max-width:765px){ 
+    .our_partner_box.owl-carousel .owl-nav button.owl-prev {
+       top: 16px
+    }
+    .our_partner_box.owl-carousel .owl-nav button.owl-next {
+       top: 16px
+    }
+    .our_partner_box .owl-dots {
+        bottom:-60px;
+    }
+    .our_news_box.owl-carousel button.owl-dot.active,
+    .testimonials_slider.owl-carousel button.owl-dot.active,
+    .our_partner_box.owl-carousel button.owl-dot.active {
+        background: linear-gradient(30deg, #00D57D 10.27%, #00D47F 11.07%, #00B9B6 38.08%, #00A6DE 60.33%, #009AF6 78.6%, #0096FF 89.73%);
+        border: 2px solid #FDFDFD;
+        box-shadow: 0px 2px 4px rgba(13, 31, 38, 0.2);
+    }
+    .our_news_box.owl-carousel button.owl-dot,
+    .testimonials_slider.owl-carousel button.owl-dot,
+    .our_partner_box.owl-carousel button.owl-dot {
+        background: #0096FF;
+    }
+    .testimonials_slider.owl-carousel .owl-nav button.owl-prev {
+        left: 24px;
+        margin-top: -9px;
+    }
+    .testimonials_slider.owl-carousel .owl-nav button.owl-next {
+        right:24px;
+         margin-top: -9px;
+    }
+    .testimonials_slider .owl-dots {
+        bottom:-57px;
+    }
+    .our_news_box.owl-carousel .owl-nav button.owl-prev {
+        left: 24px;
+        top:-38px;
+    }
+    .our_news_box.owl-carousel .owl-nav button.owl-next {
+        right: 24px;
+        top:-38px;
+    }
+    .our_news_box .owl-dots {
+        bottom:-8px;
+    }
+
+}
